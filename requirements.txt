@@ -1,1 +1,7 @@
 django
+djangorestframework
+djangorestframework-simplejwt
+drf-yasg
+aiogram
+python-dotenv
+psycopg2-binary
