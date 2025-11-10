@@ -1,13 +1,6 @@
 from django.db import models
-<<<<<<< HEAD
-
-# Create your models here.
-from django.db import models
 from django.utils.text import slugify
-=======
->>>>>>> 51576b7475cb99f6fbce023f5e7d5b835f2f53f8
 from django.urls import reverse
-from django.utils.text import slugify
 
 
 def unique_slugify(instance, value, slug_field_name='slug', queryset=None, separator='-'):
