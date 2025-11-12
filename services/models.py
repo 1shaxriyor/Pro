@@ -2,8 +2,6 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 
-
-# 🔹 Slugni avtomatik va unikal qilish funksiyasi
 def unique_slugify(instance, value, slug_field_name='slug', queryset=None, separator='-'):
     slug_base = slugify(value)
     slug = slug_base
@@ -19,8 +17,7 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None, separ
     return slug
 
 
-# 🔹 Service modeli
-class Service(models.Model):
+
     name = models.CharField(max_length=120)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(null=True, blank=True)
@@ -61,3 +58,4 @@ class Master(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.service.name})"
+

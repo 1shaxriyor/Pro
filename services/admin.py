@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Service, Master
 
 
@@ -21,3 +22,6 @@ class MasterAdmin(admin.ModelAdmin):
     search_fields = ('name', 'phone')
     ordering = ('name',)
     readonly_fields = ('created_at', 'updated_at')
+
+
+

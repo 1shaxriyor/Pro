@@ -1,0 +1,7 @@
+<h2>Telegram integratsiya</h2>
+<form method="POST">
+  {% csrf_token %}
+  <label for="telegram_id">Telegram ID:</label>
+  <input type="text" name="telegram_id" value="{{ user.telegram_id }}">
+  <button type="submit">Saqlash</button>
+</form>
