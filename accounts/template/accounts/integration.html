@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Telegram Integratsiyasi</h2>
+  <p>Sizning Telegram ID: <strong>{{ telegram_id }}</strong></p>
+  <p>Agar test uchun telegram_id qo'lda kiritmoqchi bo'lsangiz, <a href="{% url 'profile' %}">profil</a>ga o‘ting.</p>
+{% endblock %}
+
+
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Telegram Integratsiyasi</h2>
+
+  <p>Hozirgi telegram id: <strong id="tg-id">{{ telegram_id }}</strong></p>
+
+  <!-- Telegram Login Widget -->
+  <script async src="https://telegram.org/js/telegram-widget.js?15"
+    data-telegram-login="{{ TELEGRAM_BOT_USERNAME }}"
+    data-size="large"
+    data-userpic="false"
+    data-request-access="write"
+    data-onauth="onTelegramAuth">
+  </script>
+
+  <script>
+    function csrfToken() {
+      return '{{ csrf_token }}';
+    }
+
+    function onTelegramAuth(user) {
+      // user object provided by Telegram widget
+      const formData = new FormData();
+      for (const k in user) {
+        if (user.hasOwnProperty(k)) formData.append(k, user[k]);
+      }
+      fetch("{% url 'telegram_login_link' %}", {
+        method: "POST",
+        headers: {
+          'X-CSRFToken': csrfToken()
+        },
+        body: formData
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.telegram_id) {
+          document.getElementById('tg-id').innerText = data.telegram_id;
+          alert('Telegram bog\'landi: ' + data.telegram_id);
+        } else {
+          alert(JSON.stringify(data));
+        }
+      })
+      .catch(e => alert('Xato: ' + e));
+    }
+  </script>
+
+  <hr>
+
+  <h4>Bot orqali bog'lash (token usuli)</h4>
+  <button id="gen-token" class="btn btn-outline-primary">Bot token yaratish</button>
+  <div id="token-result" class="mt-2"></div>
+
+  <script>
+    document.getElementById('gen-token').addEventListener('click', function(){
+      fetch("{% url 'generate_bot_token' %}", {
+        method: "GET",
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+          'Accept': 'application/json'
+        }
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.token) {
+          document.getElementById('token-result').innerHTML =
+            '<p>Token: <code>' + data.token + '</code></p>'
+            + '<p>Botga /start <code>' + data.token + '</code> yuboring.</p>';
+        } else {
+          document.getElementById('token-result').innerText = JSON.stringify(data);
+        }
+      })
+      .catch(e => { document.getElementById('token-result').innerText = 'Xato: ' + e });
+    });
+  </script>
+
+{% endblock %}
