@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 
+
 def unique_slugify(instance, value, slug_field_name='slug', queryset=None, separator='-'):
     slug_base = slugify(value)
     slug = slug_base
@@ -17,7 +18,8 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None, separ
     return slug
 
 
-
+# 🔹 Xizmat modeli
+class Service(models.Model):
     name = models.CharField(max_length=120)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(null=True, blank=True)
@@ -42,7 +44,7 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None, separ
         return reverse('service_detail', kwargs={'slug': self.slug})
 
 
-# 🔹 Master modeli
+# 🔹 Usta modeli
 class Master(models.Model):
     name = models.CharField(max_length=120)
     phone = models.CharField(max_length=20)
@@ -58,4 +60,3 @@ class Master(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.service.name})"
-
