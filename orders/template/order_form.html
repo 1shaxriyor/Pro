@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-6">Buyurtma berish</h2>
+<form method="post" class="bg-white p-6 rounded shadow-md space-y-4">
+    {% csrf_token %}
+    <div>
+        <label class="block font-medium mb-1">Xizmat nomi</label>
+        <input type="text" name="service_name" class="w-full border border-gray-300 rounded px-3 py-2" required>
+    </div>
+    <div>
+        <label class="block font-medium mb-1">Tavsif</label>
+        <textarea name="description" class="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+    </div>
+    <div>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buyurtma berish</button>
+    </div>
+</form>
+{% endblock %}

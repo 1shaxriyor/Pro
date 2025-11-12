@@ -1,29 +1,18 @@
-from rest_framework import generics
+from django.shortcuts import render, redirect
 from .models import Order
-from .serializers import OrderSerializer
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 
-class OrderCreateView(generics.CreateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
+def order_form_view(request):
+    if request.method == "POST":
+        service_name = request.POST.get("service_name")
+        description = request.POST.get("description")
+        Order.objects.create(client=request.user, service_name=service_name, description=description)
+        return redirect("orders_list")
+    return render(request, "orders/order_form.html")
 
-    def perform_create(self, serializer):
-        serializer.save(client=self.request.user)
+def orders_list_view(request):
+    orders = Order.objects.filter(client=request.user)
+    return render(request, "orders/orders_list.html", {"orders": orders})
 
-
-class OrderStatusUpdateView(generics.UpdateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
-    lookup_field = 'id'
-
-    def patch(self, request, *args, **kwargs):
-        order = self.get_object()
-        new_status = request.data.get('status')
-        if new_status:
-            order.status = new_status
-            order.save()
-            return Response({'message': 'Status updated successfully'})
-        return Response({'error': 'Status not provided'}, status=400)
+def master_orders_view(request):
+    orders = Order.objects.filter(master=request.user)
+    return render(request, "orders/master_orders.html", {"orders": orders})

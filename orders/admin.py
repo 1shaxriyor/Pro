@@ -3,6 +3,6 @@ from .models import Order
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'client', 'master', 'service_name', 'status', 'created_at')
-    list_filter = ('status', 'created_at')
-    search_fields = ('service_name', 'client__username', 'master__username')
+    list_display = ("id", "client", "master", "service_name", "status", "created_at")
+    list_filter = ("status",)
+    search_fields = ("service_name", "client__username", "master__username")

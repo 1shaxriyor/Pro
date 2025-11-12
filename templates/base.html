@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Service Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <nav class="bg-gray-800 text-white p-4 shadow">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-lg font-bold">ServiceApp</a>
+            <div class="space-x-4">
+                <a href="{% url 'order_form' %}" class="hover:text-gray-300">Buyurtma berish</a>
+                <a href="{% url 'orders_list' %}" class="hover:text-gray-300">Mening buyurtmalarim</a>
+                <a href="{% url 'master_orders' %}" class="hover:text-gray-300">Master buyurtmalari</a>
+                <a href="{% url 'logout' %}" class="hover:text-gray-300">Chiqish</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-8 px-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
