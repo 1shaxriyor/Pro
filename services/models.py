@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 
-
 def unique_slugify(instance, value, slug_field_name='slug', queryset=None, separator='-'):
     slug_base = slugify(value)
     slug = slug_base
@@ -18,7 +17,7 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None, separ
     return slug
 
 
-class Service(models.Model):  # ✅ to‘g‘ri yozildi
+
     name = models.CharField(max_length=120)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(null=True, blank=True)
@@ -41,3 +40,22 @@ class Service(models.Model):  # ✅ to‘g‘ri yozildi
 
     def get_absolute_url(self):
         return reverse('service_detail', kwargs={'slug': self.slug})
+
+
+# 🔹 Master modeli
+class Master(models.Model):
+    name = models.CharField(max_length=120)
+    phone = models.CharField(max_length=20)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='masters')
+    experience = models.PositiveIntegerField(default=0)  # tajriba (yil)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Usta"
+        verbose_name_plural = "Ustalar"
+        ordering = ['name']
+
+    def __str__(self):
+        return f"{self.name} ({self.service.name})"
+
