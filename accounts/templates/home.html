@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Bosh sahifa{% endblock %}
+
+{% block content %}
+<div class="p-5 bg-light rounded-3">
+    <h1 class="display-5 fw-bold">Service Loyihasiga Xush kelibsiz!</h1>
+    <p class="lead mt-3">
+        Bu loyiha orqali siz Telegram integratsiya qilishingiz, buyurtmalarni boshqarishingiz
+        va shaxsiy profilingizni tahrirlashingiz mumkin.
+    </p>
+
+    {% if not user.is_authenticated %}
+        <a href="/register/" class="btn btn-primary btn-lg">Ro‘yxatdan o‘tish</a>
+        <a href="/login/" class="btn btn-outline-secondary btn-lg">Kirish</a>
+    {% else %}
+        <a href="/profile/" class="btn btn-success btn-lg">Profilga o‘tish</a>
+    {% endif %}
+</div>
+{% endblock %}

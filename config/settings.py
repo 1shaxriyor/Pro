@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'main',
 ]
 
-# ✅ Custom user model (faqat bitta!)
+
 AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [

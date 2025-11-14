@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+<h3>Salom, {{ user.username }}!</h3>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Telegram ID:</strong> 
+            {% if user.telegram_id %}
+                <span class="text-success">{{ user.telegram_id }}</span>
+            {% else %}
+                <span class="text-danger">Ulanmagan</span>
+            {% endif %}
+        </p>
+
+        <a href="/profile/integration/" class="btn btn-primary">Telegram bilan ulash</a>
+    </div>
+</div>
+{% endblock %}

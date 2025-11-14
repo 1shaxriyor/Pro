@@ -10,9 +10,9 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="/" class="text-lg font-bold">ServiceApp</a>
             <div class="space-x-4">
-                <a href="{% url 'order_form' %}" class="hover:text-gray-300">Buyurtma berish</a>
-                <a href="{% url 'orders_list' %}" class="hover:text-gray-300">Mening buyurtmalarim</a>
-                <a href="{% url 'master_orders' %}" class="hover:text-gray-300">Master buyurtmalari</a>
+                <a href="{% url 'orders:order_form' %}" class="hover:text-gray-300">Buyurtma berish</a>
+                <a href="{% url 'orders:orders_list' %}" class="hover:text-gray-300">Mening buyurtmalarim</a>
+                <a href="{% url 'orders:master_orders' %}" class="hover:text-gray-300">Master buyurtmalari</a>
                 <a href="{% url 'logout' %}" class="hover:text-gray-300">Chiqish</a>
             </div>
         </div>
