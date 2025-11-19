@@ -33,7 +33,7 @@ class Service(models.Model):
         verbose_name_plural = "Xizmatlar"
         ordering = ['name']
 
-    def __str__(self):
+    def str(self):
         return self.name
 
     def save(self, *args, **kwargs):
@@ -59,5 +59,5 @@ class Master(models.Model):
         verbose_name_plural = "Ustalar"
         ordering = ['name']
 
-    def __str__(self):
+    def str(self):
         return f"{self.name} ({self.service.name})"
