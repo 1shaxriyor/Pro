@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.urls import reverse
 
 
+#  Slugni avtomatik va unikal qilish funksiyasi
 def unique_slugify(instance, value, slug_field_name='slug', queryset=None, separator='-'):
     slug_base = slugify(value)
     slug = slug_base
@@ -18,7 +19,7 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None, separ
     return slug
 
 
-# 🔹 Xizmat modeli
+#  Service modeli
 class Service(models.Model):
     name = models.CharField(max_length=120)
     slug = models.SlugField(unique=True, blank=True)
@@ -32,7 +33,7 @@ class Service(models.Model):
         verbose_name_plural = "Xizmatlar"
         ordering = ['name']
 
-    def __str__(self):
+    def str(self):
         return self.name
 
     def save(self, *args, **kwargs):
@@ -44,7 +45,7 @@ class Service(models.Model):
         return reverse('service_detail', kwargs={'slug': self.slug})
 
 
-# 🔹 Usta modeli
+#  Master modeli
 class Master(models.Model):
     name = models.CharField(max_length=120)
     phone = models.CharField(max_length=20)
@@ -58,5 +59,5 @@ class Master(models.Model):
         verbose_name_plural = "Ustalar"
         ordering = ['name']
 
-    def __str__(self):
+    def str(self):
         return f"{self.name} ({self.service.name})"
