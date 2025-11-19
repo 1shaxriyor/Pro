@@ -1,11 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.contrib import messages
 
-from .models import User
+from .forms import UserRegisterForm, ProfileForm
 
 
 # ---------------------------
@@ -15,13 +14,14 @@ def register_view(request):
     if request.user.is_authenticated:
         return redirect("home")
 
-    form = UserCreationForm(request.POST or None)
-
     if request.method == "POST":
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect("profile")
+    else:
+        form = UserRegisterForm()
 
     return render(request, "accounts/register.html", {"form": form})
 
@@ -57,15 +57,24 @@ def logout_view(request):
 
 
 # ---------------------------
-# Profile sahifasi
+# Profile view
 # ---------------------------
 @login_required
 def profile_view(request):
-    return render(request, "accounts/profile.html")
+    if request.method == "POST":
+        form = ProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profilingiz yangilandi!")
+            return redirect("profile")
+    else:
+        form = ProfileForm(instance=request.user)
+
+    return render(request, "accounts/profile.html", {"form": form})
 
 
 # ---------------------------
-# Telegram integratsiya sahifasi
+# Telegram integratsiya view
 # ---------------------------
 @login_required
 def integration_view(request):
