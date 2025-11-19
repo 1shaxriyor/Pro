@@ -27,6 +27,8 @@ urlpatterns = [
     # Accounts (login, register, profile)
     path('', include('accounts.urls')),
     path('', include('orders.urls')),
+    # Services
+    path('services/', include('services.urls')),
 ]
 
 
