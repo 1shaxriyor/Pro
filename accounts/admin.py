@@ -1,9 +1,8 @@
-from .models import User
+from .models import CustomUser
 from django.contrib import admin
-from .models import User, TelegramConnectToken
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-@admin.register(User)
+@admin.register(CustomUser)
 class UserAdmin(BaseUserAdmin):
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'telegram_id')
     search_fields = ('username', 'email', 'telegram_id')
@@ -13,10 +12,3 @@ class UserAdmin(BaseUserAdmin):
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
-
-
-@admin.register(TelegramConnectToken)
-class TelegramConnectTokenAdmin(admin.ModelAdmin):
-    list_display = ('user', 'token', 'created_at', 'used')
-    search_fields = ('user__username', 'token')
-    list_filter = ('used',)
