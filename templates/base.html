@@ -22,11 +22,11 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a href="{% url 'orders:order_form' %}" class="nav-link">Buyurtma berish</a>
-            </li>
-
+            {% csrf_token %} 
             {% if user.is_authenticated %}
+              <li class="nav-item">
+              <a href="{% url 'orders:order_form' %}" class="nav-link">Buyurtma berish</a>
+              </li>
               <li class="nav-item">
                 <a href="{% url 'orders:orders_list' %}" class="nav-link">Mening buyurtmalarim</a>
               </li>
