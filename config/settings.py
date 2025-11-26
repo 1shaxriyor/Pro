@@ -29,13 +29,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
 
     # Third-party apps
     'rest_framework',
     'rest_framework_simplejwt',
 
     # Project apps
-     'services',
+    'services',
     'accounts',
     'orders',
     'main',

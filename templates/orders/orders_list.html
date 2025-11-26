@@ -1,26 +1,23 @@
 {% extends "base.html" %}
-{% block title %}Master buyurtmalari{% endblock %}
+{% block title %}Mening buyurtmalarim{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h2 class="mb-4">Master buyurtmalari</h2>
+    <h2 class="mb-4">Mening buyurtmalarim</h2>
     <div class="table-responsive">
         <table class="table table-striped table-bordered align-middle">
             <thead class="table-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Client</th>
                     <th>Xizmat</th>
                     <th>Status</th>
                     <th>Tavsif</th>
-                    <th>Harakat</th>
                 </tr>
             </thead>
             <tbody>
                 {% for order in orders %}
                 <tr>
                     <td>{{ order.id }}</td>
-                    <td>{{ order.client.username }}</td>
                     <td>{{ order.service_name }}</td>
                     <td>
                         {% if order.status == 'pending' %}
@@ -32,18 +29,10 @@
                         {% endif %}
                     </td>
                     <td>{{ order.description }}</td>
-                    <td>
-                        {% if order.status == 'pending' %}
-                            <a href="{% url 'orders:order-update' order.id %}?action=accept" class="btn btn-success btn-sm mb-1">✔ Qabul qilish</a>
-                            <a href="{% url 'orders:order-update' order.id %}?action=reject" class="btn btn-danger btn-sm mb-1">❌ Rad etish</a>
-                        {% else %}
-                            <span class="text-muted">Harakat yo‘q</span>
-                        {% endif %}
-                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="6" class="text-center text-muted">Hozircha buyurtma yo‘q</td>
+                    <td colspan="4" class="text-center text-muted">Hozircha buyurtma yo‘q</td>
                 </tr>
                 {% endfor %}
             </tbody>

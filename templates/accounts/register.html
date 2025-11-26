@@ -1,17 +1,82 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block title %}Ro‘yxatdan o‘tish{% endblock %}
+{% load widget_tweaks %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <h3 class="mb-4">Ro‘yxatdan o‘tish</h3>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-6">
 
-        <form method="POST">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h3 class="card-title text-center mb-4">Ro‘yxatdan o‘tish</h3>
+
+          <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
 
-            <button class="btn btn-success w-100">Ro‘yxatdan o‘tish</button>
-        </form>
+            <div style="display:none;">
+              {{ form.role }}
+            </div>
+
+            <div class="mb-3">
+              {{ form.username.label_tag }}
+              {{ form.username|add_class:"form-control" }}
+            </div>
+
+            <div class="mb-3">
+              {{ form.email.label_tag }}
+              {{ form.email|add_class:"form-control" }}
+            </div>
+
+            <div class="mb-3">
+              {{ form.phone.label_tag }}
+              {{ form.phone|add_class:"form-control" }}
+            </div>
+
+            {% if role == 'worker' %}
+            <div class="mb-3">
+              <label>Kasbingiz:</label>
+              {{ form.job|add_class:"form-control" }}
+            </div>
+            {% endif %}
+
+            <div class="mb-3">
+              {{ form.password1.label_tag }}
+              {{ form.password1|add_class:"form-control" }}
+            </div>
+
+            <div class="mb-3">
+              {{ form.password2.label_tag }}
+              {{ form.password2|add_class:"form-control" }}
+            </div>
+
+            <!-- ROLE TANLASH -->
+            <div class="d-flex justify-content-center gap-3 mb-4">
+
+              <a href="?role=customer"
+                 class="btn btn-outline-primary {% if role == 'customer' %}active{% endif %}">
+                Mijoz sifatida
+              </a>
+
+              <a href="?role=worker"
+                 class="btn btn-outline-success {% if role == 'worker' %}active{% endif %}">
+                Usta sifatida
+              </a>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Ro‘yxatdan o‘tish</button>
+          </form>
+
+          <hr>
+          <p class="text-center text-muted mb-0">
+            Allaqachon ro‘yxatdan o‘tganmisiz?
+            <a href="{% url 'login' %}">Kirish</a>
+          </p>
+
+        </div>
+      </div>
+
     </div>
+  </div>
 </div>
 {% endblock %}
